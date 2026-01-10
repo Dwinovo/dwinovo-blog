@@ -3,20 +3,46 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
-
+import Image from '@/components/Image'
+import { coreContent } from 'pliny/utils/contentlayer'
+import { allAuthors } from 'contentlayer/generated'
 const MAX_DISPLAY = 5
 
 export default function Home({ posts }) {
+  const author = allAuthors.find((p) => p.slug === 'default')
+  const avatar = author?.avatar
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+        <div className="space-y-2 md:space-y-5">
+          <div className="space-y-2 pt-8 pb-2 md:space-y-5">
+            <div className="flex flex-col items-center xl:mb-6 xl:flex-row xl:items-start xl:justify-between">
+              <div className="max-w-2xl pt-6 text-center xl:text-left">
+                <h1 className="pt-8 pb-6 text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+                  Hi, I’m Dwinovo
+                </h1>
+                <h2 className="prose text-lg text-gray-600 dark:text-gray-400">
+                  "Every day is a gift, that's why they call it the 'present'. Even if the wrapping
+                  paper is dirty and the box is crushed."
+                </h2>
+              </div>
+              {avatar && (
+                <div className="mr-15 flex flex-col items-center pt-8 xl:pt-6">
+                  <Image
+                    src={avatar}
+                    alt="avatar"
+                    width={200}
+                    height={200}
+                    className="h-48 w-48 rounded-full"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
           <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             Latest
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {siteMetadata.description}
-          </p>
+          <p className="pb-8 text-lg leading-7 text-gray-500 dark:text-gray-400">What's new?</p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
