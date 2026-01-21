@@ -1,0 +1,56 @@
+name: Deploy to Tencent Cloud
+
+on:
+  push:
+    branches: [ main ] # 只有推送到 main 分支时触发
+  workflow_dispatch:   # 允许在网页上手动点按钮触发
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取代码
+      - uses: actions/checkout@v4
+
+      # 2. 准备 Node 环境
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: yarn
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # 4. 构建项目
+      # 这里非常关键：注入环境变量以匹配你的 next.config.js 逻辑
+      - name: Build
+        run: yarn build
+        env:
+          EXPORT: 'true'      # 触发 output: 'export'
+          UNOPTIMIZED: 'true' # 触发 images.unoptimized = true
+          # 你的 config 里还有 BASE_PATH，如果没有特殊需求（比如不是部署在子路径），这里不需要设
+
+      # 5. 部署到服务器
+      - name: Deploy via Rsync
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          # 将本地构建好的 out 文件夹的内容，同步到服务器的 blog 目录
+          SOURCE: "out/"
+          TARGET: "/var/www/blog"
+          # 参数解释：
+          # -r: 递归
+          # -l: 保留软链接
+          # -t: 保留时间戳
+          # -o: 保留 owner (有时需要去掉，如果 git user 和 server user 不一致)
+          # -g: 保留 group
+          # -v: 详细输出
+          # -z: 压缩传输
+          # --delete: 删除服务器上多余的旧文件（保持完全同步）
+          ARGS: "-rltgoDzvO --delete"
