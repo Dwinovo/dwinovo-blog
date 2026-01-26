@@ -21,7 +21,12 @@ export default function Home({ posts }) {
                 <h1 className="pt-8 pb-6 text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
                   Hi, I’m Dwinovo
                 </h1>
-                <h2 className="prose text-lg text-gray-600 dark:text-gray-400">
+                <h2
+                  className="prose text-lg text-gray-600 dark:text-gray-400"
+                  style={{
+                    fontFamily: 'var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif',
+                  }}
+                >
                   "Every day is a gift, that's why they call it the 'present'. Even if the wrapping
                   paper is dirty and the box is crushed."
                 </h2>

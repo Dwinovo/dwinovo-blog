@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import { ReactNode } from 'react'
@@ -8,8 +8,20 @@ interface Props {
   children: ReactNode
 }
 
-const inter = Inter({
-  subsets: ['latin'],
+const inter = localFont({
+  src: [
+    {
+      path: '../public/static/fonts/Inter/Inter-VariableFont_opsz,wght.ttf',
+      weight: '100 900',
+      style: 'normal',
+    },
+    {
+      path: '../public/static/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf',
+      weight: '100 900',
+      style: 'italic',
+    },
+  ],
+  display: 'swap',
 })
 
 const LayoutWrapper = ({ children }: Props) => {
