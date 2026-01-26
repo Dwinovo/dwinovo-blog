@@ -32,7 +32,7 @@ export default function Home({ posts }) {
                 </h2>
               </div>
               {avatar && (
-                <div className="mr-15 flex flex-col items-center pt-8 xl:pt-6">
+                <div className="flex flex-col items-center pt-8 xl:pt-6">
                   <Image
                     src={avatar}
                     alt="avatar"
@@ -44,7 +44,7 @@ export default function Home({ posts }) {
               )}
             </div>
           </div>
-          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+          <h1 className="mt-10 text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             Latest
           </h1>
           <p className="pb-8 text-lg leading-7 text-gray-500 dark:text-gray-400">What's new?</p>
