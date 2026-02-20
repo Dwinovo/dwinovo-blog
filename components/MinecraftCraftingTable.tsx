@@ -1,47 +1,115 @@
 import Image from './Image'
 
+type Locale = 'zh' | 'en'
 type MaterialKey = 'flint' | 'stick' | 'yellowWool' | 'lightBlueWool' | 'pinkWool'
+type OutputKey = 'usagiWeapon' | 'hachiwareWeapon' | 'chiikawaWeapon'
+type ItemKey = MaterialKey | OutputKey
+type GridSlot = MaterialKey | null
+type GridSlots = [
+  GridSlot,
+  GridSlot,
+  GridSlot,
+  GridSlot,
+  GridSlot,
+  GridSlot,
+  GridSlot,
+  GridSlot,
+  GridSlot,
+]
 
 type Recipe = {
-  name: string
-  grid: Array<MaterialKey | null>
+  id: string
+  name: Record<Locale, string>
+  grid: GridSlots
+  output: OutputKey
 }
 
-const MATERIALS: Record<MaterialKey, { src: string; alt: string }> = {
+const ITEMS: Record<ItemKey, { src: string; name: Record<Locale, string> }> = {
   flint: {
     src: '/static/images/minecraft/flint.png',
-    alt: '燧石',
+    name: {
+      zh: '燧石',
+      en: 'Flint',
+    },
   },
   stick: {
     src: '/static/images/minecraft/stick.png',
-    alt: '木棍',
+    name: {
+      zh: '木棍',
+      en: 'Stick',
+    },
   },
   yellowWool: {
     src: '/static/images/minecraft/yellow_wool.png',
-    alt: '黄羊毛',
+    name: {
+      zh: '黄羊毛',
+      en: 'Yellow Wool',
+    },
   },
   lightBlueWool: {
     src: '/static/images/minecraft/light_blue_wool.png',
-    alt: '蓝羊毛',
+    name: {
+      zh: '蓝羊毛',
+      en: 'Light Blue Wool',
+    },
   },
   pinkWool: {
     src: '/static/images/minecraft/pink_wool.png',
-    alt: '粉羊毛',
+    name: {
+      zh: '粉羊毛',
+      en: 'Pink Wool',
+    },
+  },
+  usagiWeapon: {
+    src: '/static/images/minecraft/usagi_weapon.png',
+    name: {
+      zh: '乌萨奇的讨伐棒',
+      en: "Usagi's Weapon",
+    },
+  },
+  hachiwareWeapon: {
+    src: '/static/images/minecraft/hachiware_weapon.png',
+    name: {
+      zh: '小八的讨伐棒',
+      en: "Hachiware's Weapon",
+    },
+  },
+  chiikawaWeapon: {
+    src: '/static/images/minecraft/chiikawa_weapon.png',
+    name: {
+      zh: '吉伊的讨伐棒',
+      en: "Chiikawa's Weapon",
+    },
   },
 }
 
 const RECIPES: Recipe[] = [
   {
-    name: '黄羊毛配方',
+    id: 'usagi-recipe',
+    name: {
+      zh: '乌萨奇的讨伐棒',
+      en: "Usagi's Weapon",
+    },
     grid: [null, null, 'yellowWool', 'flint', 'stick', 'flint', 'yellowWool', null, null],
+    output: 'usagiWeapon',
   },
   {
-    name: '蓝羊毛配方',
+    id: 'hachiware-recipe',
+    name: {
+      zh: '小八的讨伐棒',
+      en: "Hachiware's Weapon",
+    },
     grid: [null, 'lightBlueWool', null, null, 'stick', 'lightBlueWool', 'stick', null, null],
+    output: 'hachiwareWeapon',
   },
   {
-    name: '粉羊毛配方',
+    id: 'chiikawa-recipe',
+    name: {
+      zh: '吉伊的讨伐棒',
+      en: "Chiikawa's Weapon",
+    },
     grid: [null, 'pinkWool', null, null, 'stick', 'pinkWool', 'stick', null, null],
+    output: 'chiikawaWeapon',
   },
 ]
 
@@ -56,13 +124,26 @@ const OUTPUT_ITEM_Y = 69
 const itemImageStyle = { imageRendering: 'pixelated' as const }
 
 type PositionedItemProps = {
-  src: string
-  name: string
+  locale: Locale
+  itemKey: ItemKey
   left: number
   top: number
 }
 
-const PositionedItem = ({ src, name, left, top }: PositionedItemProps) => {
+const getGridPosition = (index: number) => {
+  const row = Math.floor(index / 3)
+  const col = index % 3
+
+  return {
+    left: GRID_START_X + col * SLOT_STEP,
+    top: GRID_START_Y + row * SLOT_STEP,
+  }
+}
+
+const PositionedItem = ({ locale, itemKey, left, top }: PositionedItemProps) => {
+  const item = ITEMS[itemKey]
+  const itemName = item.name[locale]
+
   return (
     <div
       className="group absolute"
@@ -74,9 +155,9 @@ const PositionedItem = ({ src, name, left, top }: PositionedItemProps) => {
       }}
     >
       <Image
-        src={src}
-        alt={name}
-        title={name}
+        src={item.src}
+        alt={itemName}
+        title={itemName}
         width={ITEM_SIZE}
         height={ITEM_SIZE}
         className="h-full w-full"
@@ -87,27 +168,35 @@ const PositionedItem = ({ src, name, left, top }: PositionedItemProps) => {
         }}
       />
       <span className="pointer-events-none absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded bg-zinc-900/90 px-1.5 py-0.5 text-[10px] leading-none font-medium whitespace-nowrap text-white opacity-0 shadow transition-opacity duration-150 group-hover:opacity-100 dark:bg-zinc-100/90 dark:text-zinc-900">
-        {name}
+        {itemName}
       </span>
     </div>
   )
 }
 
-const MinecraftCraftingTable = () => {
+type MinecraftCraftingTableProps = {
+  lang?: Locale
+}
+
+const MinecraftCraftingTable = ({ lang = 'zh' }: MinecraftCraftingTableProps) => {
   return (
     <div className="not-prose my-6 space-y-4">
       {RECIPES.map((recipe) => (
         <div
-          key={recipe.name}
+          key={recipe.id}
           className="overflow-hidden rounded-lg border border-zinc-300 bg-zinc-100/80 p-3 shadow-sm dark:border-zinc-700 dark:bg-zinc-900/80"
         >
           <p className="mb-2 text-center text-sm font-semibold text-zinc-700 dark:text-zinc-200">
-            {recipe.name}
+            {recipe.name[lang]}
           </p>
           <div className="relative mx-auto aspect-[2/1] w-full max-w-[320px] overflow-hidden rounded-md border border-zinc-400/70 bg-zinc-300/60">
             <Image
               src="/static/images/minecraft/crafting_table.jpg"
-              alt={`${recipe.name}合成台背景`}
+              alt={
+                lang === 'zh'
+                  ? `${recipe.name[lang]}合成台背景`
+                  : `${recipe.name[lang]} crafting table`
+              }
               width={320}
               height={160}
               className="h-full w-full object-cover"
@@ -118,25 +207,22 @@ const MinecraftCraftingTable = () => {
                 if (!material) {
                   return null
                 }
-
-                const row = Math.floor(index / 3)
-                const col = index % 3
-                const { src, alt } = MATERIALS[material]
+                const position = getGridPosition(index)
 
                 return (
                   <PositionedItem
-                    key={`${recipe.name}-${index}-${material}`}
-                    src={src}
-                    name={alt}
-                    left={GRID_START_X + col * SLOT_STEP}
-                    top={GRID_START_Y + row * SLOT_STEP}
+                    key={`${recipe.id}-slot-${index}`}
+                    locale={lang}
+                    itemKey={material}
+                    left={position.left}
+                    top={position.top}
                   />
                 )
               })}
               <PositionedItem
-                key={`${recipe.name}-output-stick`}
-                src={MATERIALS.stick.src}
-                name="木棍（产物占位）"
+                key={`${recipe.id}-output`}
+                locale={lang}
+                itemKey={recipe.output}
                 left={OUTPUT_ITEM_X}
                 top={OUTPUT_ITEM_Y}
               />
