@@ -101,12 +101,13 @@ const RECIPES: Recipe[] = [
   },
 ]
 
-// Pixel-art textures (vanilla items, music_box) ship as 128x128 PNGs, so we
-// render at exactly 0.5x — clean integer downscale, no fractional pixels.
+// Vanilla pixel-art textures ship as 32x32 PNGs (MC Wiki invicon sprites).
+// Display sizes are integer multiples of 32 so `image-rendering: pixelated`
+// stays pixel-perfect — fractional zoom produces uneven pixel widths.
 const INPUT_SLOT = 80
-const INPUT_IMG = 64
-const OUTPUT_SLOT = 96
-const OUTPUT_IMG = 80
+const INPUT_IMG = 64 // 32px source × 2
+const OUTPUT_SLOT = 112
+const OUTPUT_IMG = 96 // 32px source × 3
 
 type SlotProps = {
   itemKey?: ItemKey
