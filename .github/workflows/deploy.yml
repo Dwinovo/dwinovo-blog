@@ -15,20 +15,26 @@ jobs:
       # 1. 拉取代码
       - uses: actions/checkout@v4
 
-      # 2. 准备 Node 环境
+      # 2. 准备 pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 3. 准备 Node 环境
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: yarn
+          cache: 'pnpm'
 
-      # 3. 安装依赖
+      # 4. 安装依赖
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
-      # 4. 构建项目
+      # 5. 构建项目
       # 这里非常关键：注入环境变量以匹配你的 next.config.js 逻辑
       - name: Build
-        run: yarn build
+        run: pnpm build
         env:
           EXPORT: 'true'      # 触发 output: 'export'
           UNOPTIMIZED: 'true' # 触发 images.unoptimized = true
