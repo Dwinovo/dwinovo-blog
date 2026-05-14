@@ -15,11 +15,9 @@ jobs:
       # 1. 拉取代码
       - uses: actions/checkout@v4
 
-      # 2. 准备 pnpm
+      # 2. 准备 pnpm（版本从 package.json 的 packageManager 字段读取）
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       # 3. 准备 Node 环境
       - uses: actions/setup-node@v4
