@@ -1,10 +1,10 @@
 ---
 title: 'Chiikawa Mod: Introduction & Guide'
 date: '2026-01-21'
-lastmod: '2026-01-21'
+lastmod: '2026-05-14'
 tags: ['Minecraft', 'Java']
 draft: false
-summary: 'An unofficial Minecraft mod based on the Chiikawa universe. Encounter and tame adorable Chiikawa characters, assign them professions, and let them become your capable companions in survival!'
+summary: 'An unofficial Minecraft mod that brings 7 healing Chiikawa characters into your world. Tame them, give them jobs, and let Hachiware perform your own playlist on guitar — all in-game.'
 ---
 
 <div
@@ -39,23 +39,56 @@ summary: 'An unofficial Minecraft mod based on the Chiikawa universe. Encounter 
     English
   </a>
 </div>
-> **📅 Updates & Apology (Jan 2026)**
->
-> I sincerely apologize for the slow updates recently due to heavy academic pressure.
->
-> The good news is that I am gradually getting back on track with development, and the update frequency will increase! I currently have two **top priorities**: **first, to listen to your feedback and keep updating the mod accordingly; second, to refactor and improve the AI features.**
->
-> This mod grows with your support. If you have any creative ideas for gameplay or suggestions, feel free to reach out via the **[About](/about)** page, or through **CurseForge, Douyin, Bilibili, and fan groups**.
 
-# Introduction
+<div className="my-6 rounded-2xl border border-pink-300/40 bg-gradient-to-br from-pink-100 via-amber-50 to-sky-100 p-6 shadow-sm dark:border-pink-400/30 dark:from-pink-500/10 dark:via-amber-500/5 dark:to-sky-500/10">
+  <div className="mb-3 flex items-center gap-2">
+    <span className="rounded-full bg-pink-500/15 px-2.5 py-1 text-xs font-semibold tracking-wide text-pink-700 dark:bg-pink-400/20 dark:text-pink-300">
+      v0.0.4 Beta
+    </span>
+    <span className="text-xs text-zinc-500 dark:text-zinc-400">Released May 14, 2026</span>
+  </div>
+  <h3 className="mt-0 mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+    🎉 What's new in 0.0.4
+  </h3>
+  <ul className="my-0 list-none space-y-2 pl-0 text-sm text-zinc-700 dark:text-zinc-300">
+    <li className="my-0">
+      🎵 <strong>Brand-new Music Box item</strong>: drop your own audio files (mp3 / wav / flac /
+      m4a / ogg…) into the config folder, and the mod transcodes them so you can pick and play your
+      own playlist in-game.
+    </li>
+    <li className="my-0">
+      🎸 <strong>Hachiware's new "Musician" job</strong>: hand him a Music Box with a song selected,
+      switch to Work mode, and he'll pick up his guitar and perform — nearby players will hear it.
+    </li>
+    <li className="my-0">
+      ✨ <strong>Hachiware's animations got a glow-up</strong>: blinking, breathing, idle
+      micro-motions, plus polished shadows and hurt overlays — he feels noticeably more alive. The
+      other characters will get the same treatment in upcoming releases.
+    </li>
+    <li className="my-0">
+      🌐 <strong>Massively expanded version support</strong>: now covers{' '}
+      <strong>1.20.1 ~ 1.21.11 and 26.1.2</strong>, so whichever version you've settled on, the mod
+      should run on it.
+    </li>
+  </ul>
+  <div className="mt-4 mb-0 text-xs text-zinc-600 dark:text-zinc-400">
+    Got feedback or gameplay ideas? Reach me via the{' '}
+    <a href="/about" className="underline">
+      About
+    </a>{' '}
+    page, CurseForge, Douyin, Bilibili, or the fan group.
+  </div>
+</div>
 
-Welcome to the **Chiikawa Mod**! This is an unofficial mod based on the _Chiikawa_ IP. This mod aims to bring those healing characters from the Chiikawa universe into your Minecraft world.
+# What is this mod?
 
-Not only can you encounter them during your adventures, but you can also tame them by feeding them food, making them your loyal companions. They feature independent inventories, multiple behavior modes, and can even take on professions like **Farmer**, **Swordsman**, or **Archer** based on the tools you provide, assisting you with automated farming or fighting alongside you against monsters.
+**Chiikawa Mod** is an unofficial Minecraft mod that drops the healing little creatures from the anime _Chiikawa_ straight into your world.
 
-## 📥 How to Download?
+It isn't a "reskin pet" mod. Beyond the 7 wild characters that spawn around the world, the mod ships a full **taming system**, **profession system**, **doll-based revival ritual**, and — new in 0.0.4 — a complete **custom music performance system**. Once it's installed, your save permanently gains a new cast of companions: noisy at times, comforting at others, capable of farming, fighting alongside you, and now performing your favorite songs on guitar.
 
-This mod is now officially available on **[CurseForge](https://www.curseforge.com/minecraft/mc-mods/chiikawa)**.
+## 📥 How to Download
+
+The mod is officially listed on **[CurseForge](https://www.curseforge.com/minecraft/mc-mods/chiikawa)** — the cleanest path is to install it through a launcher rather than dropping the file in by hand. Most modern launchers (CurseForge App, Modrinth App, Prism, PCL2, HMCL) can search and install it directly from the mods browser.
 
 ## ❤️ Development & Support
 
@@ -105,28 +138,50 @@ This mod is now officially available on **[CurseForge](https://www.curseforge.co
 
 ---
 
-## 🌏 Spawning Mechanics
+## 🐾 The Cast
 
-During your adventure, you can find wild Chiikawas spawning in the following biomes. They mainly inhabit warm and temperate regions:
+The mod adds **7 tameable companions** in total. They all share the same base stats (**20 HP, 0.3 movement speed**), but each has unique sound cues, and a few have exclusive weapons or jobs.
+
+| Character     | A.k.a.                               | What makes them special                                                                                              |
+| :------------ | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| **Usagi**     | the bunny                            | Unique attack & ambient voice cues; signature weapon **Usagi's Stick** (Iron sword stats + Fire Aspect I)            |
+| **Hachiware** | the blue one                         | **The only one who can become a Musician**; signature weapon **Hachiware's Stick** (Stone sword stats + Knockback I) |
+| **Chiikawa**  | the protagonist                      | Signature weapon **Chiikawa's Stick** (Stone sword stats + Knockback I)                                              |
+| **Shisa**     | the little lion                      | Cozy companion                                                                                                       |
+| **Momonga**   | the flying squirrel who wants praise | Cozy companion                                                                                                       |
+| **Kurimanju** | the round one                        | Cozy companion                                                                                                       |
+| **Rakko**     | the mentor                           | Cozy companion                                                                                                       |
+
+> In Creative mode, you'll find all 7 **spawn eggs**, 7 **dolls**, 3 **Subjugation Sticks**, and 1 **Music Box** inside the dedicated "Chiikawa" creative tab — 18 items total.
+
+---
+
+## 🌏 Where to Find Them
+
+Wild Chiikawa spawn in these biomes, mostly warm and temperate regions:
 
 - **Plains**: Plains, Sunflower Plains
 - **Savanna**: Savanna, Savanna Plateau, Desert
 - **Other**: Swamp, Snowy Plains
 
+All 7 species share the same spawn rules and **spawn solo** (no packs) — every encounter is a one-of-a-kind moment.
+
 ---
 
-## 💖 Taming & Interaction
+## 💖 Taming & Daily Interaction
 
-### How to Tame
+### 1. How to Tame
 
-Hold a delicious food item in your main hand and **Right-Click** on a wild Chiikawa to feed it.
+Hold a food item in your main hand and **right-click** a wild Chiikawa to feed it.
 
-- **Success Rate**: Each feeding has a **30%** chance to successfully tame the Chiikawa.
-- **Note**: Food will be consumed regardless of whether the taming is successful or not.
+- **Success rate**: **30%** per feed.
+- **Cost**: one food item per attempt, succeed or fail — bring a stack.
+- **On success**: that character's unique tame sound plays, plus a happy little animation.
+- **On failure**: it does a confused head-scratch instead — try again with another bite.
 
-### Accepted Food List
+### 2. Accepted Foods
 
-Chiikawas are absolute "foodies" and accept most vanilla food items:
+Almost any edible vanilla item works:
 
 > 🍎 **Fruits & Vegetables**: Apple, Carrot, Golden Carrot, Melon Slice, Potato, Sweet Berries, Glow Berries, Beetroot
 >
@@ -136,94 +191,196 @@ Chiikawas are absolute "foodies" and accept most vanilla food items:
 >
 > 🥣 **Soups & Drinks**: Mushroom Stew, Rabbit Stew, Honey Bottle
 
-### Companion Interaction
+### 3. After Taming
 
-- **Healing**: After taming, Right-Clicking your pet with any of the foods listed above will heal it for **4 HP**.
-- **Inventory System**: **Right-Click** your tamed pet to open its inventory.
-  - **Capacity**: 16 slots of storage space.
-  - **Equipment**: Includes one main-hand slot (used for equipping tools or weapons).
+- **Healing**: any of the foods above can be fed to a tamed pet for **+4 HP** per item (consumed only if the pet is below max HP).
+- **Backpack**: right-click your tamed companion to open its **16-slot** inventory panel.
+- **Main-hand slot**: the first slot is the **equipment slot** — whatever tool sits here automatically determines the pet's active job.
+
+> 💡 The mod **doesn't include breeding** — every companion is an individual you've personally tamed from the wild. Take good care of your party.
 
 ---
 
-## 🧠 Behavior Modes
+## 🧠 Three Behavior Modes
 
-You can cycle through three behavior modes by **Crouching (Shift) + Right-Clicking** on your pet. The system will display the current mode status.
+Crouch + right-click a tamed companion to cycle through three modes. The current mode flashes briefly on your action bar.
 
-### 1. Follow Mode
+### 1. Follow Mode (default)
 
-The default mode. Your pet will follow you closely as you explore the world.
+It tags along behind you like a small shadow.
 
-- **Catch-up Mechanism**: If the distance exceeds 7 blocks, it will sprint towards you.
-- **Teleport**: If the distance exceeds 20 blocks, it will teleport directly to your side (to prevent getting lost).
+- If the distance exceeds **7 blocks**, it sprints to catch up.
+- If the distance exceeds **20 blocks**, it teleports to your side (no more "wait, where's my Hachiware…" moments after a Nether trip).
 
 ### 2. Sit Mode
 
-The pet stays put.
+Stays put — but its gaze still tracks nearby entities. You can feel it watching.
 
-- The pet will sit in place, will not move, and will not trigger teleportation.
-- **AI State**: Although it sits still, it will still look at nearby entities.
+- Doesn't move, doesn't teleport.
+- Perfect for parking it before a boss fight or while building delicate redstone.
 
 ### 3. Work Mode
 
-The core of automation!
+The moment you flip to this mode, the pet locks its current position as its "workstation" and starts performing whatever its current job demands.
 
-- When switched to this mode, the pet will **memorize its current coordinates** as its "Workstation."
-- It will begin executing the logic for its current profession (see below).
-- **Wandering**: If there is no work to do, it will wander around the workstation but will never stray too far from the anchored coordinates.
+- When there's nothing to do, it wanders around its workstation — never straying far.
+- See the next section for what each job actually does.
 
 ---
 
 ## 🛠️ Profession System
 
-Chiikawas can automatically acquire a profession based on the item held in their main hand.
+A pet's job is determined automatically by **whatever tool you put in its main hand**. Swap the tool, swap the job.
 
 ### 🌾 Farmer
 
-**Requirement**: Hold any **Hoe** in the main hand.
+**Requirement**: any **Hoe** in the main hand.
 
-**Work Logic**:
+In Work mode, it will:
 
-1.  **Auto-Harvest**: Automatically harvests crops when they are detected as fully grown.
-    - _Supported Crops_: Wheat, Potato, Carrot, Beetroot, Melon, Pumpkin.
-2.  **Auto-Replant**: After harvesting, it will take seeds from its inventory and replant them.
-    - _Supported Seeds_: Wheat Seeds, Beetroot Seeds, Pumpkin Seeds, Melon Seeds, Potato, Carrot.
-3.  **Auto-Deposit**: When the inventory contains crops, it will search for nearby containers and deposit the harvest.
-    - _Depositable Items_: Wheat, Beetroot, Potato, Carrot, Melon Slice, Pumpkin.
-    - _Supported Containers_: Chest, Trapped Chest, Barrel, Hopper.
+1. **Auto-harvest** fully-grown **Wheat, Potato, Carrot, Beetroot, Melon, and Pumpkin** blocks within range.
+2. **Auto-replant** using seeds from its own backpack (Wheat Seeds, Beetroot Seeds, Pumpkin Seeds, Melon Seeds, Potato, Carrot).
+3. **Auto-deposit** harvested crops into adjacent **Chests, Trapped Chests, Barrels, or Hoppers**.
 
-### ⚔️ Swordsman
+Drop it into your village farm or your enclosed crop pen and you've got an automation line.
 
-**Requirement**: Hold any **Sword** in the main hand.
+### ⚔️ Fencer
 
-- _Supported Weapons_: All vanilla swords (Wood/Stone/Iron/Gold/Diamond/Netherite) and the custom weapons added by this mod.
+**Requirement**: any **Sword** in the main hand — including all six vanilla swords and the three mod Subjugation Sticks.
 
-**Combat Logic**:
-Actively attacks nearby hostile mobs. It protects itself and assists its owner in battle.
-
-- _Targets_: Zombies, Skeletons, Spiders, Illagers (Pillager, Vindicator, etc.), Blazes, Ghasts, and other common monsters.
+- Actively attacks nearby hostile mobs: zombies, skeletons, spiders, illagers (pillagers, vindicators…), blazes, ghasts, and other common monsters.
+- Attack cadence is roughly one swing per second.
 
 ### 🏹 Archer
 
-**Requirement**:
+**Requirement**: a **Bow** in the main hand + **arrows** in the backpack.
 
-1.  Hold a **Bow** in the main hand.
-2.  Have **Arrows** in the inventory.
+- Same target list as the Fencer, but it keeps its distance and engages at range.
+- Supports the **Infinity** enchantment — a single arrow is enough if the bow has it.
 
-**Combat Logic**:
-The target list is the same as the Swordsman, but it will maintain distance and engage in ranged attacks.
+### 🎸 Musician <span className="ml-1 align-middle text-[10px] font-bold tracking-wide text-pink-600 dark:text-pink-400">NEW</span>
+
+**Requirement**: **Hachiware only** — main hand holds a **Music Box** with a track already selected.
+
+- In Work mode, Hachiware picks up his guitar and performs the chosen track. Nearby players hear it.
+- During performance his guitar model appears and his mouth expression bone activates — he's playing for real.
+- If a hostile mob attacks him mid-song, the performance pauses; once he's safe, he picks it back up.
+
+> Full walkthrough below: [Music Box & Custom Music](#-music-box--custom-music).
 
 ---
 
-## ⚔️ New Weapons
+## 🎵 Music Box & Custom Music
 
-The mod adds exclusive "Subjugation Sticks" (Sasumata) for the trio. They not only replicate the original looks but also come with powerful attributes.
+The headline feature of 0.0.4. Bring any song you want into Minecraft and let Hachiware perform it live for you and everyone nearby.
+
+### 1. Get FFmpeg ready
+
+The mod relies on **FFmpeg** to transcode arbitrary audio files into the in-game stream format.
+
+- FFmpeg is a free one-time install on most platforms (on Windows, make sure it's on your PATH after installing).
+- If the mod can't find FFmpeg, the Music Box UI shows a clear warning and a "Reload" button — just install FFmpeg and click reload, no restart required.
+- Server admins can sanity-check the install with `/chiikawa music ffmpeg status`.
+
+### 2. Drop in your tracks
+
+Open the server's (or single-player world's) config directory and find `config/chiikawa/music/`. Drop in any common audio format:
+
+> 🎼 **Supported formats**: mp3 / wav / flac / m4a / ogg — basically anything FFmpeg can decode.
+
+The mod transcodes them in the background. Default per-track length cap is **10 minutes**, adjustable in `config/chiikawa/music.json`.
+
+### 3. Pick a song from the Music Box
+
+Hold the Music Box and **right-click** to open the song list:
+
+- Successfully imported tracks are clickable — click to select.
+- The item's name updates to show the current song (e.g. `Song: your-favorite.mp3`).
+- Tracks still being processed show as **"Importing"**; failed conversions show as **"Failed"**.
+
+### 4. Let Hachiware perform
+
+1. Right-click your tamed Hachiware to open his backpack, then drag the **Music Box** into the **main-hand slot**.
+2. Crouch + right-click to flip him into **Work Mode**.
+3. He picks up the guitar and starts playing 🎶.
+
+By default, every player within **32 blocks** of him hears the music — think of him as a walking, breathing BGM speaker.
+
+### 5. Tips
+
+- **Mini concerts**: hand different Hachiwares different songs and host a forest music festival. The default concurrent session cap is 4.
+- **Combat priority**: if Hachiware is attacked mid-performance, he pauses; once the threat is gone, he resumes.
+- **Admin command**: `/chiikawa music rescan` force-reloads the music folder, so newly added tracks become available without a server restart.
+
+---
+
+## 💀 Death & Revival: Doll + Cake Ritual
+
+> ⚠️ This is a hidden mechanic — most players don't know about it. Once you've read this section, your pets never truly die.
+
+### 1. What happens on death
+
+When a tamed companion's HP hits zero, it doesn't disappear like a vanilla pet — **it drops a species-specific Doll item** on the spot.
+
+That doll fully preserves the pet's:
+
+- Entire **16-slot backpack contents**
+- Current **behavior mode** (Follow / Sit / Work)
+- **Job** assignment
+- The **custom name** you gave it
+- Its **ownership** bond with you
+
+Death is, effectively, a temporary transformation into a portable doll — one you can revive later.
+
+> 💡 Every doll has a quiet tooltip hint: _"Try placing the doll on a cake?"_ — that's the secret.
+
+### 2. The revival ritual
+
+Materials are simple:
+
+- ✅ 1 **matching-species doll** (the one that dropped on death)
+- ✅ 1 **Cake** (any bite state — fresh, half-eaten, doesn't matter)
+
+Steps:
+
+1. Place the cake.
+2. Holding the doll, **right-click** the cake.
+3. A bite is taken out of the cake (or the last slice is consumed); the doll is consumed.
+4. **Green happy-villager particles + heart particles** appear above the cake for about **3 seconds**.
+5. Your companion reappears at the cake — fully healed, all data intact, facing toward you.
+
+> 💡 If the spawn position is blocked, the ritual aborts safely and **the doll is returned** to you — nothing is lost.
+
+### 3. Creative mode note
+
+In Creative mode, dolls aren't consumed on use — handy for testing. But remember: a doll stores **that specific companion's exact state**, not a fresh copy.
+
+---
+
+## ⚔️ The Three Subjugation Sticks
+
+The mod includes signature weapons for Usagi, Hachiware, and Chiikawa. They replicate the anime's look and come pre-enchanted:
 
 | Weapon Name           | Base Stats        | Enchantments     |
 | :-------------------- | :---------------- | :--------------- |
-| **Usagi's Stick**     | Iron Sword Stats  | 🔥 Fire Aspect I |
-| **Hachiware's Stick** | Stone Sword Stats | 💨 Knockback I   |
-| **Chiikawa's Stick**  | Stone Sword Stats | 💨 Knockback I   |
+| **Usagi's Stick**     | Iron Sword stats  | 🔥 Fire Aspect I |
+| **Hachiware's Stick** | Stone Sword stats | 💨 Knockback I   |
+| **Chiikawa's Stick**  | Stone Sword stats | 💨 Knockback I   |
 
-### 🧰 Crafting Table
+The sticks count as swords, so they double as Fencer-job triggers — slip one into a pet's main hand and it gets both a thematic weapon and an active combat profession.
+
+### 🧰 Crafting Recipes
 
 <MinecraftCraftingTable lang="en" />
+
+---
+
+## 📮 Feedback & Suggestions
+
+The mod is still in beta — plenty of features are being polished. If you:
+
+- Run into a bug
+- Have an idea for new gameplay
+- Want a new character or item added
+
+Drop me a line via the **[About](/about)** page, or find me on CurseForge, Douyin, Bilibili, or the fan group. I read every message, and the next update very well might be because of yours.
