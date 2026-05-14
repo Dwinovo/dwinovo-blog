@@ -24,47 +24,59 @@ type Recipe = {
   output: OutputKey
 }
 
+type ItemDef = {
+  src: string
+  name: Record<Locale, string>
+  // Pixel-art textures (vanilla items + music_box) need nearest-neighbor scaling;
+  // the mod's high-res weapon artwork looks better with the browser's default smoothing.
+  pixelArt: boolean
+}
+
 const STRINGS = {
-  zh: {
-    output: '产物',
-  },
-  en: {
-    output: 'Output',
-  },
+  zh: { output: '产物' },
+  en: { output: 'Output' },
 } as const
 
-const ITEMS: Record<ItemKey, { src: string; name: Record<Locale, string> }> = {
+const ITEMS: Record<ItemKey, ItemDef> = {
   flint: {
     src: '/static/images/minecraft/flint.png',
     name: { zh: '燧石', en: 'Flint' },
+    pixelArt: true,
   },
   stick: {
     src: '/static/images/minecraft/stick.png',
     name: { zh: '木棍', en: 'Stick' },
+    pixelArt: true,
   },
   yellowWool: {
     src: '/static/images/minecraft/yellow_wool.png',
     name: { zh: '黄色羊毛', en: 'Yellow Wool' },
+    pixelArt: true,
   },
   blueWool: {
     src: '/static/images/minecraft/blue_wool.png',
     name: { zh: '蓝色羊毛', en: 'Blue Wool' },
+    pixelArt: true,
   },
   pinkWool: {
     src: '/static/images/minecraft/pink_wool.png',
     name: { zh: '粉红色羊毛', en: 'Pink Wool' },
+    pixelArt: true,
   },
   usagiWeapon: {
     src: '/static/images/minecraft/usagi_weapon.png',
     name: { zh: '乌萨奇的讨伐棒', en: "Usagi's Stick" },
+    pixelArt: false,
   },
   hachiwareWeapon: {
     src: '/static/images/minecraft/hachiware_weapon.png',
     name: { zh: '小八的讨伐棒', en: "Hachiware's Stick" },
+    pixelArt: false,
   },
   chiikawaWeapon: {
     src: '/static/images/minecraft/chiikawa_weapon.png',
     name: { zh: '吉伊的讨伐棒', en: "Chiikawa's Stick" },
+    pixelArt: false,
   },
 }
 
@@ -89,7 +101,12 @@ const RECIPES: Recipe[] = [
   },
 ]
 
-const pixelated = { imageRendering: 'pixelated' as const }
+// Pixel-art textures (vanilla items, music_box) ship as 128x128 PNGs, so we
+// render at exactly 0.5x — clean integer downscale, no fractional pixels.
+const INPUT_SLOT = 80
+const INPUT_IMG = 64
+const OUTPUT_SLOT = 96
+const OUTPUT_IMG = 80
 
 type SlotProps = {
   itemKey?: ItemKey
@@ -100,12 +117,14 @@ type SlotProps = {
 const Slot = ({ itemKey, locale, variant = 'input' }: SlotProps) => {
   const item = itemKey ? ITEMS[itemKey] : null
   const itemName = item ? item.name[locale] : ''
-  const sizeClass = variant === 'output' ? 'h-16 w-16' : 'h-12 w-12'
-  const imgSize = variant === 'output' ? 56 : 40
+  const slotPx = variant === 'output' ? OUTPUT_SLOT : INPUT_SLOT
+  const imgPx = variant === 'output' ? OUTPUT_IMG : INPUT_IMG
+  const renderingClass = item?.pixelArt ? '[image-rendering:pixelated]' : ''
 
   return (
     <div
-      className={`group relative ${sizeClass} shrink-0 border border-zinc-500/70 bg-[#8B8B8B] shadow-[inset_2px_2px_0_0_rgba(0,0,0,0.35),inset_-2px_-2px_0_0_rgba(255,255,255,0.45)] dark:border-zinc-700 dark:bg-[#3F3F3F] dark:shadow-[inset_2px_2px_0_0_rgba(0,0,0,0.55),inset_-2px_-2px_0_0_rgba(255,255,255,0.12)]`}
+      className="group relative shrink-0 border border-zinc-500/70 bg-[#8B8B8B] shadow-[inset_2px_2px_0_0_rgba(0,0,0,0.35),inset_-2px_-2px_0_0_rgba(255,255,255,0.45)] dark:border-zinc-700 dark:bg-[#3F3F3F] dark:shadow-[inset_2px_2px_0_0_rgba(0,0,0,0.55),inset_-2px_-2px_0_0_rgba(255,255,255,0.12)]"
+      style={{ width: `${slotPx}px`, height: `${slotPx}px` }}
     >
       {item && (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -113,14 +132,10 @@ const Slot = ({ itemKey, locale, variant = 'input' }: SlotProps) => {
             src={item.src}
             alt={itemName}
             title={itemName}
-            width={imgSize}
-            height={imgSize}
-            className=""
-            style={{
-              ...pixelated,
-              width: `${imgSize}px`,
-              height: `${imgSize}px`,
-            }}
+            width={imgPx}
+            height={imgPx}
+            className={renderingClass}
+            style={{ width: `${imgPx}px`, height: `${imgPx}px` }}
           />
         </div>
       )}
