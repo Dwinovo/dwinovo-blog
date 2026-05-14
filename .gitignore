@@ -4,6 +4,9 @@
 /node_modules
 .pnpm-store/
 
+# Claude Code local config
+.claude/
+
 # testing
 /coverage
 

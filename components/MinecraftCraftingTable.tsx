@@ -1,7 +1,7 @@
 import Image from './Image'
 
 type Locale = 'zh' | 'en'
-type MaterialKey = 'flint' | 'stick' | 'yellowWool' | 'lightBlueWool' | 'pinkWool'
+type MaterialKey = 'flint' | 'stick' | 'yellowWool' | 'blueWool' | 'pinkWool'
 type OutputKey = 'usagiWeapon' | 'hachiwareWeapon' | 'chiikawaWeapon'
 type ItemKey = MaterialKey | OutputKey
 type GridSlot = MaterialKey | null
@@ -46,9 +46,9 @@ const ITEMS: Record<ItemKey, { src: string; name: Record<Locale, string> }> = {
     src: '/static/images/minecraft/yellow_wool.png',
     name: { zh: '黄色羊毛', en: 'Yellow Wool' },
   },
-  lightBlueWool: {
-    src: '/static/images/minecraft/light_blue_wool.png',
-    name: { zh: '淡蓝色羊毛', en: 'Light Blue Wool' },
+  blueWool: {
+    src: '/static/images/minecraft/blue_wool.png',
+    name: { zh: '蓝色羊毛', en: 'Blue Wool' },
   },
   pinkWool: {
     src: '/static/images/minecraft/pink_wool.png',
@@ -78,7 +78,7 @@ const RECIPES: Recipe[] = [
   {
     id: 'hachiware-recipe',
     name: { zh: '小八的讨伐棒', en: "Hachiware's Stick" },
-    grid: [null, 'lightBlueWool', null, null, 'stick', 'lightBlueWool', 'stick', null, null],
+    grid: [null, 'blueWool', null, null, 'stick', 'blueWool', 'stick', null, null],
     output: 'hachiwareWeapon',
   },
   {
